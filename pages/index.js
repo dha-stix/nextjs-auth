@@ -4,16 +4,16 @@ import { signIn, useSession  } from "next-auth/react"
 
 export default function Home() {
   const router = useRouter()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
 
   useEffect(()=> {
     function redirect() {
-        if(session) {
+        if(status === "authenticated") {
             router.push("/dashboard")
         }
     }
     redirect()
-}, [session])
+}, [status])
 
   return (
     <div  className="flex w-full h-screen bg-gray-700 flex-col items-center justify-center">
